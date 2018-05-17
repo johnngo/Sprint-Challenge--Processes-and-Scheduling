@@ -6,12 +6,22 @@ Add your answers inline, below, with your pull request.
 
 1. List all of the main states a process may be in at any point in time on a
    standard Unix system. Briefly explain what each of these states mean.
+Running Process has all resources it needs and CPU
+
+Blocked/Sleeping/Waiting Process is waiting for resources and gives up CPU while it waits
+
+Stopped Either a kill signal was recieved or process is entering exit status, waiting to exit in the process table. Rresources are released but it remains in the process table and signals parent process that it has terminated, which lets the parent process check how it exited and release it from the process table appropriately.
+
+Zombie This is the state the child process is in between when it sends the terminated signal to the parent and when the parent clears it from the process table. A child process can remain in zombie state if its parent process is terminated before it releases the child process. Zombie state is indicated by Z in the process list.
+
+Uninterruptible sleep When a process does certain system calls, it is possible to enter this state.The process is blocked performing a sytem call, and the process cannot be interrupted (or killed) until the system call completes. Usually it is instant, but if it gets stuck, like a Zombie call, it cant be killed or stopped; the system must be rebooted
 
 2. What is a Zombie Process? How does it get created? How does it get destroyed?
 
 3. Describe the job of the Scheduler in the OS in general.
-
+The scheduler is responsible for deciding which process will run next.
 4. Describe the benefits of the MLFQ over a plain Round-Robin scheduler.
+MLFQ adjusts priority based on time needed, getting smaller processes out of the way quicker, and Red Robin gives each process equal time and priority
 
 ## Programming Exercise: The Lambda School Shell (`lssh`)
 
